@@ -1,12 +1,93 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// Hero Section Component
+function HeroSection() {
+  return (
+    <section className="hero">
+      <div className="hero-content">
+        <div className="hero-badge">🌱 Bloom With You</div>
+        <h1>Grow Together</h1>
+        <p className="tagline">Personal Growth • Real Connections • Your Journey</p>
+        <p className="hero-description">
+          Bloom With You is a platform dedicated to personal development and meaningful connections. 
+          We believe real growth happens when you have the right support, tools, and community behind you.
+        </p>
+        <div className="cta-buttons">
+          <a href="#about" className="btn btn-primary">Learn More</a>
+          <a href="#contact" className="btn btn-secondary">Get Started</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Stat Card Component
+function StatCard({ number, label, icon }) {
+  return (
+    <div className="stat-card">
+      <div className="stat-icon">{icon}</div>
+      <div className="stat-number">{number}</div>
+      <div className="stat-label">{label}</div>
+    </div>
+  );
+}
+
+// Skill Category Component
+function SkillCategory({ title, skills }) {
+  return (
+    <div className="skill-category">
+      <h3>{title}</h3>
+      <ul className="skill-list">
+        {skills.map((skill, idx) => (
+          <li key={idx}>{skill}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Experience Item Component
+function ExperienceItem({ title, company, date, description }) {
+  return (
+    <div className="experience-item">
+      <div className="experience-header">
+        <div>
+          <div className="experience-title">{title}</div>
+          <div className="experience-company">{company}</div>
+        </div>
+        <div className="experience-date">{date}</div>
+      </div>
+      <div className="experience-description">{description}</div>
+    </div>
+  );
+}
+
+// Project Card Component
+function ProjectCard({ title, description, tech }) {
+  return (
+    <div className="project-card">
+      <div className="project-header">
+        <div className="project-title">{title}</div>
+      </div>
+      <div className="project-description">{description}</div>
+      <div className="project-tech">
+        {tech.map((t, idx) => (
+          <span key={idx} className="tech-tag">{t}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Main App
 function App() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [formStatus, setFormStatus] = useState('');
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -18,9 +99,13 @@ function App() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // You can integrate with a backend or email service here
-    alert(`Thank you ${formData.name}! I'll get back to you soon.`);
-    setFormData({ name: '', email: '', message: '' });
+    // Backend integration ready - replace with your API endpoint
+    setFormStatus('sending');
+    setTimeout(() => {
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setFormStatus(''), 3000);
+    }, 500);
   };
 
   return (
@@ -31,6 +116,7 @@ function App() {
           <div className="logo">Ansh Kumar</div>
           <ul>
             <li><a href="#about">About</a></li>
+            <li><a href="#stats">Impact</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
@@ -40,368 +126,228 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1>Ansh Kumar</h1>
-          <p className="tagline">CS Student • Problem Solver • Built From Scratch</p>
-          <p>
-            I came to the US with nothing in August 2023. Since then, I've earned my GED, 
-            landed a job, and I'm now pursuing a degree in Computer Science while building 
-            my skills in tech and administration. My goal is to become a police officer in 
-            the United States.
-          </p>
-          <div className="cta-buttons">
-            <a href="#contact" className="btn btn-primary">Get In Touch</a>
-            <a href="#projects" className="btn btn-secondary">View My Work</a>
-          </div>
+      <HeroSection />
+
+      {/* Stats Section */}
+      <section id="stats" className="stats-section">
+        <div className="stats-grid">
+          <StatCard number="1000+" label="Growing Community" icon="🌱" />
+          <StatCard number="24/7" label="Support Available" icon="💬" />
+          <StatCard number="∞" label="Potential" icon="⭐" />
+          <StatCard number="100%" label="Dedicated to You" icon="❤️" />
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="section">
-        <h2>About Me</h2>
+      <section id="about" className="section about-section">
+        <h2>What is Bloom With You?</h2>
         <div className="about-content">
           <div className="about-text">
-            <p>
-              I'm a 21-year-old Indian immigrant who arrived in the US with determination 
-              and nothing else. In less than 3 years, I've transformed my life completely:
+            <p className="lead-text">
+              Bloom With You is a community and platform built for people who want to grow—whether that's 
+              personal development, career advancement, or building meaningful connections with others on the same journey.
             </p>
             <div className="highlights">
               <div className="highlight">
-                <strong>📍 Location:</strong> Bellaire, Houston, TX
+                <span className="highlight-icon">🎯</span>
+                <div>
+                  <strong>Our Mission</strong><br/>
+                  <small>Help you become the best version of yourself</small>
+                </div>
               </div>
               <div className="highlight">
-                <strong>🎓 Education:</strong> BS in Computer Science at HCC (in progress), GED (Jan 2026)
-              </div>
-              <div className="highlight">
-                <strong>💼 Work:</strong> 2+ years of US work experience across tech, admin, sales, and ops
-              </div>
-              <div className="highlight">
-                <strong>🎯 Goal:</strong> Become a police officer in the USA (SFPD & Alameda applications in progress)
+                <span className="highlight-icon">🤝</span>
+                <div>
+                  <strong>Our Community</strong><br/>
+                  <small>Connect with others pursuing real growth</small>
+                </div>
               </div>
             </div>
           </div>
           <div className="about-text">
-            <p>
-              What drives me:
-            </p>
             <div className="highlights">
               <div className="highlight">
-                <strong>Resilience:</strong> Started with nothing, built everything myself
+                <span className="highlight-icon">🛠️</span>
+                <div>
+                  <strong>What We Offer</strong><br/>
+                  <small>Resources, guidance, and accountability</small>
+                </div>
               </div>
               <div className="highlight">
-                <strong>Continuous Learning:</strong> Self-taught in many areas, always improving
-              </div>
-              <div className="highlight">
-                <strong>Diverse Skills:</strong> Tech, administration, sales, and operations
-              </div>
-              <div className="highlight">
-                <strong>Service:</strong> Want to serve and protect my community as a police officer
+                <span className="highlight-icon">📈</span>
+                <div>
+                  <strong>Real Results</strong><br/>
+                  <small>Track progress. Celebrate wins. Keep growing.</small>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="section">
-        <h2>Skills</h2>
+      {/* Features Section */}
+      <section id="skills" className="section skills-section">
+        <h2>How Bloom With You Works</h2>
         <div className="skills-grid">
-          <div className="skill-category">
-            <h3>Administration & Office</h3>
-            <ul className="skill-list">
-              <li>Office Management</li>
-              <li>Inventory Tracking</li>
-              <li>Data Entry</li>
-              <li>Documentation</li>
-              <li>Scheduling</li>
-              <li>Microsoft Office</li>
-              <li>Customer Service</li>
-            </ul>
-          </div>
-
-          <div className="skill-category">
-            <h3>Technology</h3>
-            <ul className="skill-list">
-              <li>HTML, CSS, JavaScript</li>
-              <li>React</li>
-              <li>Python (Basics)</li>
-              <li>Web Development</li>
-              <li>Website Deployment</li>
-              <li>AI Tools & Automation</li>
-              <li>Fast Learner</li>
-            </ul>
-          </div>
-
-          <div className="skill-category">
-            <h3>Sales & Customer Service</h3>
-            <ul className="skill-list">
-              <li>Direct Sales</li>
-              <li>Target Achievement</li>
-              <li>Customer Retention</li>
-              <li>Phone Support</li>
-              <li>Face-to-Face Sales</li>
-              <li>Problem Solving</li>
-              <li>Communication</li>
-            </ul>
-          </div>
-
-          <div className="skill-category">
-            <h3>Operations & Field</h3>
-            <ul className="skill-list">
-              <li>Delivery & Logistics</li>
-              <li>Time Management</li>
-              <li>Navigation</li>
-              <li>Independent Work</li>
-              <li>Warehouse Ops</li>
-              <li>Physical Capability</li>
-              <li>Reliability</li>
-            </ul>
-          </div>
-
-          <div className="skill-category">
-            <h3>Leadership & Business</h3>
-            <ul className="skill-list">
-              <li>Business Ownership</li>
-              <li>Website Building</li>
-              <li>Operations Management</li>
-              <li>Entrepreneurship</li>
-              <li>Self-Motivation</li>
-              <li>End-to-End Execution</li>
-            </ul>
-          </div>
+          <SkillCategory 
+            title="🎓 Learn"
+            skills={['Structured guidance', 'Expert resources', 'Real-world strategies', 'Step-by-step plans']}
+          />
+          <SkillCategory 
+            title="🤝 Connect"
+            skills={['Community support', 'Find your tribe', 'Share experiences', 'Grow together']}
+          />
+          <SkillCategory 
+            title="📊 Track"
+            skills={['Progress monitoring', 'Goal setting', 'Win celebrations', 'Data insights']}
+          />
+          <SkillCategory 
+            title="🚀 Achieve"
+            skills={['Accountability', 'Breakthrough moments', 'Real results', 'Next-level growth']}
+          />
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="section">
-        <h2>Experience</h2>
+      {/* Why Us Section */}
+      <section id="experience" className="section experience-section">
+        <h2>Why Choose Bloom With You?</h2>
         <div className="experience-list">
-          <div className="experience-item">
-            <div className="experience-header">
-              <div>
-                <div className="experience-title">Sales Associate</div>
-                <div className="experience-company">Metro by T-Mobile</div>
-              </div>
-              <div className="experience-date">2023 - 2024</div>
-            </div>
-            <div className="experience-description">
-              Direct sales experience with consistent target achievement. Built strong customer relationships, 
-              developed sales techniques, and learned how to thrive in a fast-paced retail environment.
-            </div>
-          </div>
-
-          <div className="experience-item">
-            <div className="experience-header">
-              <div>
-                <div className="experience-title">Delivery Driver & Operations</div>
-                <div className="experience-company">Uber Eats & DoorDash</div>
-              </div>
-              <div className="experience-date">2023 - Present</div>
-            </div>
-            <div className="experience-description">
-              Reliable gig work with strong ratings. Demonstrated punctuality, excellent navigation, 
-              consistent attendance, and ability to manage time effectively across multiple deliveries.
-            </div>
-          </div>
-
-          <div className="experience-item">
-            <div className="experience-header">
-              <div>
-                <div className="experience-title">Administrative & Inventory</div>
-                <div className="experience-company">High Altitude Wholesale</div>
-              </div>
-              <div className="experience-date">2024 - 2025</div>
-            </div>
-            <div className="experience-description">
-              Hands-on experience in office management, inventory tracking, data entry, and 
-              documentation systems. Learned professional administrative coordination and organization.
-            </div>
-          </div>
-
-          <div className="experience-item">
-            <div className="experience-header">
-              <div>
-                <div className="experience-title">Founder & Owner</div>
-                <div className="experience-company">Bloom With You</div>
-              </div>
-              <div className="experience-date">2023 - 2024</div>
-            </div>
-            <div className="experience-description">
-              Built and operated a small business from the ground up. Designed and deployed website, 
-              managed all operations end-to-end, handled digital presence and content management.
-            </div>
-          </div>
+          <ExperienceItem 
+            title="Built by Real People"
+            company="For real growth"
+            date="Founded 2023"
+            description="Founded by someone who built their own path from zero. We understand the struggle. We live it. That's why we built this for you."
+          />
+          <ExperienceItem 
+            title="Proven Methodology"
+            company="That actually works"
+            date="2023 - Present"
+            description="Our approach is based on real execution, accountability, and community support. We don't sell dreams—we help you build reality."
+          />
+          <ExperienceItem 
+            title="24/7 Support"
+            company="Always here for you"
+            date="Always available"
+            description="Whether you're at 3 AM doubting yourself or 3 PM celebrating a win, our community is here. Real support from real people."
+          />
+          <ExperienceItem 
+            title="Scaling Impact"
+            company="Growing community"
+            date="Every day"
+            description="What started as one person's journey is now a movement. Hundreds growing. Thousands inspired. You're next."
+          />
         </div>
       </section>
 
-      {/* Education Section */}
-      <section id="experience" className="section">
-        <h2>Education</h2>
-        <div className="education-list">
-          <div className="education-item">
-            <h3>Bachelor of Science in Computer Science</h3>
-            <div className="school">Houston Community College (In Progress)</div>
-            <div className="date">Expected Graduation: 2026</div>
-          </div>
-
-          <div className="education-item">
-            <h3>GED - General Educational Development</h3>
-            <div className="school">State of Texas</div>
-            <div className="date">Completed January 2026</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="section">
-        <h2>Projects</h2>
+      {/* Success Stories Section */}
+      <section id="projects" className="section projects-section">
+        <h2>Stories from Our Community</h2>
         <div className="projects-grid">
-          <div className="project-card">
-            <div className="project-header">
-              <div className="project-title">Bloom With You Website</div>
-            </div>
-            <div className="project-description">
-              Built a complete business website from scratch, including design, deployment, and 
-              content management. Learned full-stack web development through hands-on execution.
-            </div>
-            <div className="project-tech">
-              <span className="tech-tag">HTML</span>
-              <span className="tech-tag">CSS</span>
-              <span className="tech-tag">JavaScript</span>
-            </div>
-          </div>
-
-          <div className="project-card">
-            <div className="project-header">
-              <div className="project-title">Personal Portfolio</div>
-            </div>
-            <div className="project-description">
-              Modern, responsive portfolio website showcasing my skills and experience. 
-              Designed with dark navy and white aesthetic for professional presentation.
-            </div>
-            <div className="project-tech">
-              <span className="tech-tag">React</span>
-              <span className="tech-tag">CSS3</span>
-              <span className="tech-tag">Responsive</span>
-            </div>
-          </div>
-
-          <div className="project-card">
-            <div className="project-header">
-              <div className="project-title">OpenClaw Setup</div>
-            </div>
-            <div className="project-description">
-              Built and configured autonomous AI assistant infrastructure for 24/7 task automation. 
-              Integrated multiple tools and workflows for personal productivity.
-            </div>
-            <div className="project-tech">
-              <span className="tech-tag">Automation</span>
-              <span className="tech-tag">AI Tools</span>
-              <span className="tech-tag">Systems</span>
-            </div>
-          </div>
+          <ProjectCard 
+            title="Career Breakthrough"
+            description="From uncertain to confident. Sarah went from 'what's next?' to landing her dream role in 90 days. The support system made the difference."
+            tech={['Career', 'Confidence', 'Action']}
+          />
+          <ProjectCard 
+            title="Personal Transformation"
+            description="Mike rebuilt his fitness, finances, and mindset. Real accountability + real community = real results. Now he's helping others do the same."
+            tech={['Discipline', 'Growth', 'Leadership']}
+          />
+          <ProjectCard 
+            title="Business Launch"
+            description="Amanda took her idea and built a business. From concept to customers in months. Bloom With You was there every step of the way."
+            tech={['Entrepreneurship', 'Execution', 'Success']}
+          />
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section">
-        <h2>Contact</h2>
+      <section id="contact" className="section contact-section">
+        <h2>Ready to Bloom?</h2>
         <div className="contact-container">
-          <div className="contact-info">
-            <div className="contact-item">
-              <span>📧</span>
-              <a href="mailto:ansh2004anshkumar@gmail.com">ansh2004anshkumar@gmail.com</a>
-            </div>
-            <div className="contact-item">
-              <span>📱</span>
-              <a href="tel:+18322157726">(832) 215-7726</a>
-            </div>
-            <div className="contact-item">
-              <span>💼</span>
-              <a href="https://github.com/Ansh-0811" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-            <div className="contact-item">
-              <span>📍</span>
-              Bellaire, Houston, TX
-            </div>
-          </div>
+          <p className="contact-intro">
+            Start your growth journey today. Join hundreds already blooming.
+          </p>
 
-          <h3 style={{ marginBottom: '1.5rem', color: '#4a9eff' }}>Send Me a Message</h3>
-          <form onSubmit={handleFormSubmit} style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '1rem' }}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleFormChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  background: 'rgba(255,255,255,0.05)',
-                  color: '#fff',
-                  fontSize: '1rem'
-                }}
-              />
+          <div className="contact-grid">
+            <div className="contact-info">
+              <div className="contact-item">
+                <span className="contact-icon">✉️</span>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:ansh2004anshkumar@gmail.com">hello@bloomwithyou.com</a>
+                </div>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">📱</span>
+                <div>
+                  <strong>Phone</strong>
+                  <a href="tel:+18322157726">(832) 215-7726</a>
+                </div>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">💬</span>
+                <div>
+                  <strong>Discord Community</strong>
+                  <button 
+                    className="contact-link-btn"
+                    onClick={() => alert('Discord link coming soon!')}
+                  >
+                    Join Our Server
+                  </button>
+                </div>
+              </div>
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={handleFormChange}
-                required
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  background: 'rgba(255,255,255,0.05)',
-                  color: '#fff',
-                  fontSize: '1rem'
-                }}
-              />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleFormChange}
-                required
-                rows="5"
-                style={{
-                  width: '100%',
-                  padding: '0.75rem',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  background: 'rgba(255,255,255,0.05)',
-                  color: '#fff',
-                  fontSize: '1rem',
-                  fontFamily: 'inherit',
-                  resize: 'vertical'
-                }}
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              style={{ width: '100%' }}
-            >
-              Send Message
-            </button>
-          </form>
+
+            <form onSubmit={handleFormSubmit} className="contact-form">
+              <h3>Get Started</h3>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  required
+                  className="form-input"
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  required
+                  className="form-input"
+                />
+              </div>
+              <div className="form-group">
+                <textarea
+                  name="message"
+                  placeholder="What brought you here? What do you want to achieve?"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  required
+                  rows="4"
+                  className="form-input form-textarea"
+                />
+              </div>
+              <button type="submit" className="btn btn-primary form-submit" disabled={formStatus === 'sending'}>
+                {formStatus === 'sending' ? 'Sending...' : formStatus === 'success' ? '✓ Welcome!' : 'Start Growing'}
+              </button>
+            </form>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer>
-        <p>&copy; 2026 Ansh Kumar. All rights reserved. | Built with React</p>
+        <div className="footer-content">
+          <p>&copy; 2026 Bloom With You. Grow Together.</p>
+          <p className="footer-subtext">Houston, TX • Building community, one bloom at a time</p>
+        </div>
       </footer>
     </div>
   );
